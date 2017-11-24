@@ -1,0 +1,29 @@
+group 'com.garlick.hellolambda'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+defaultTasks 'build'
+
+repositories {
+    mavenCentral()
+    maven { url "https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core" }
+}
+
+dependencies {
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.1.0'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtime
+    }
+}
+
+build.dependsOn buildZip
