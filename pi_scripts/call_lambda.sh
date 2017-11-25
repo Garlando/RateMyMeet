@@ -1,5 +1,5 @@
 aws lambda invoke \
---invocation-type RequestResponse \
+--invocation-type Event \
 --function-name RateMyMeet \
 --region eu-west-1 \
 --payload $1 \
